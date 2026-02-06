@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Snake</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#111111">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <header class="game-header">
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="label">PUAN</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">REKOR</span>
+                    <span id="high-score">0</span>
+                </div>
+            </div>
+
+            <div class="controls-top">
+                <button id="theme-btn" class="icon-btn" aria-label="Temayı Değiştir">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button id="info-btn" class="icon-btn" aria-label="Bilgi">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="canvas-wrapper">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <div id="start-screen" class="overlay visible">
+                <h1>NEON SNAKE</h1>
+                <p>Başlamak için Dokun veya Tuşa Bas</p>
+                <button id="start-btn" class="glow-btn">OYNA</button>
+            </div>
+            <div id="game-over-screen" class="overlay hidden">
+                <h2>OYUN BİTTİ</h2>
+                <p>Skorun: <span id="final-score">0</span></p>
+                <button id="restart-btn" class="glow-btn">TEKRAR DENE</button>
+            </div>
+        </div>
+
+        <div class="mobile-controls">
+            <button class="d-pad-btn up" data-dir="up"><i class="fas fa-chevron-up"></i></button>
+            <div class="d-pad-row">
+                <button class="d-pad-btn left" data-dir="left"><i class="fas fa-chevron-left"></i></button>
+                <button class="d-pad-btn right" data-dir="right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <button class="d-pad-btn down" data-dir="down"><i class="fas fa-chevron-down"></i></button>
+        </div>
+
+    </div>
+
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">&times;</button>
+            <div class="profile-preview">
+                <div class="profile-icon">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <h3>Şeyma Sevim</h3>
+                <p>Geliştirici & Tasarımcı</p>
+            </div>
+            <p class="modal-text">Bu oyun Şeyma Sevim tarafından tasarlandı. Daha fazlası için web sayfamı ziyaret et.
+            </p>
+            <a href="https://seyma-sevim.github.io/web" target="_blank" class="glow-link">
+                Web Sayfasına Git <i class="fas fa-external-link-alt"></i>
+            </a>
+            <div class="theme-showcase">
+                <p>Temalar</p>
+                <div class="theme-dots">
+                    <span class="dot t-neon" data-t="neon"></span>
+                    <span class="dot t-cyber" data-t="cyber"></span>
+                    <span class="dot t-sunset" data-t="sunset"></span>
+                    <span class="dot t-ocean" data-t="ocean"></span>
+                    <span class="dot t-monochrome" data-t="monochrome"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+</body>
+
+</html>
