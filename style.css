@@ -8,6 +8,7 @@
     --accent-color: #ffffff;
     --glow-color: rgba(57, 255, 20, 0.6);
     --grid-line: rgba(255, 255, 255, 0.05);
+    --panel-bg: rgba(255, 255, 255, 0.05);
     --font-main: 'Orbitron', sans-serif;
     --font-ui: 'Rajdhani', sans-serif;
 }
@@ -54,87 +55,102 @@ body {
     font-family: var(--font-main);
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     overflow: hidden;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Game Container */
-.game-container {
+/* Main Layout Grid */
+.main-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    max-width: 500px;
+    height: 100%;
     padding: 20px;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Side Panel (Stats) */
+.side-panel {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-/* Header & Score */
-.game-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.score-board {
-    display: flex;
-    gap: 20px;
-}
-
-.score-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.score-item .label {
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.score-item span:not(.label) {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: 0 0 10px var(--glow-color);
-}
-
-/* Controls (Top) */
-.controls-top {
-    display: flex;
     gap: 15px;
+    min-width: 200px;
+    justify-content: center;
 }
 
-.icon-btn {
-    background: none;
+.panel-card {
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.score-card h2 {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.score-card span {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 15px var(--glow-color);
+}
+
+.actions-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-btn {
+    background: transparent;
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Game Area */
+.game-area {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 0 10px var(--glow-color);
-    transition: transform 0.2s;
 }
 
-.icon-btn:active {
-    transform: scale(0.9);
-}
-
-/* Canvas Area */
 .canvas-wrapper {
     position: relative;
     padding: 5px;
     border: 2px solid var(--primary-color);
-    box-shadow: 0 0 20px var(--glow-color), inset 0 0 20px var(--glow-color);
+    box-shadow: 0 0 30px var(--glow-color), inset 0 0 20px var(--glow-color);
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 canvas {
@@ -143,10 +159,96 @@ canvas {
         linear-gradient(var(--grid-line) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 20px 20px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    height: auto;
 }
 
-/* Overlays (Start / Game Over) */
+/* Bottom Controls */
+.bottom-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    /* Increased gap */
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.d-pad-row {
+    display: flex;
+    gap: 40px;
+    /* Large space between Left and Right */
+}
+
+.d-pad-btn {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px var(--glow-color);
+    backdrop-filter: blur(5px);
+    transition: transform 0.1s;
+}
+
+.d-pad-btn:active {
+    background: var(--primary-color);
+    color: #000;
+    transform: scale(0.95);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .side-panel {
+        flex-direction: row;
+        width: 100%;
+        min-width: auto;
+        justify-content: space-between;
+    }
+
+    .panel-card {
+        padding: 10px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .actions-card {
+        flex-direction: row;
+    }
+
+    .action-btn {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .score-card span {
+        font-size: 1.5rem;
+    }
+
+    canvas {
+        width: 100%;
+        max-width: 350px;
+        /* Constrain width on mobile */
+    }
+}
+
+/* Overlays */
 .overlay {
     position: absolute;
     top: 0;
@@ -196,52 +298,12 @@ canvas {
     transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
+    border-radius: 5px;
 }
 
 .glow-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 25px var(--glow-color);
-}
-
-/* Mobile Controls */
-.mobile-controls {
-    display: none;
-    /* Hidden on desktop by default, shown via media query if needed or touch detection */
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-@media (hover: none) and (pointer: coarse) {
-    .mobile-controls {
-        display: flex;
-    }
-}
-
-.d-pad-row {
-    display: flex;
-    gap: 20px;
-}
-
-.d-pad-btn {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    border-radius: 12px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 10px var(--glow-color);
-}
-
-.d-pad-btn:active {
-    background: var(--primary-color);
-    color: #000;
 }
 
 /* Info Modal */

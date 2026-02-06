@@ -25,53 +25,57 @@
 
 <body>
 
-    <div class="game-container">
+    <div class="main-layout">
 
-        <header class="game-header">
-            <div class="score-board">
-                <div class="score-item">
-                    <span class="label">PUAN</span>
-                    <span id="score">0</span>
-                </div>
-                <div class="score-item">
-                    <span class="label">REKOR</span>
-                    <span id="high-score">0</span>
-                </div>
+        <!-- Left Panel: Stats & Settings -->
+        <aside class="side-panel">
+            <div class="panel-card score-card">
+                <h2>SKOR</h2>
+                <span id="score">0</span>
             </div>
 
-            <div class="controls-top">
-                <button id="theme-btn" class="icon-btn" aria-label="Temayı Değiştir">
-                    <i class="fas fa-palette"></i>
+            <div class="panel-card score-card">
+                <h2>REKOR</h2>
+                <span id="high-score">0</span>
+            </div>
+
+            <div class="panel-card actions-card">
+                <button id="theme-btn" class="action-btn" aria-label="Temayı Değiştir">
+                    <i class="fas fa-palette"></i> Tema
                 </button>
-                <button id="info-btn" class="icon-btn" aria-label="Bilgi">
-                    <i class="fas fa-info-circle"></i>
+                <button id="info-btn" class="action-btn" aria-label="Bilgi">
+                    <i class="fas fa-info-circle"></i> Bilgi
                 </button>
             </div>
-        </header>
+        </aside>
 
-        <div class="canvas-wrapper">
-            <canvas id="gameCanvas" width="400" height="400"></canvas>
-            <div id="start-screen" class="overlay visible">
-                <h1>NEON SNAKE</h1>
-                <p>Başlamak için Dokun veya Tuşa Bas</p>
-                <button id="start-btn" class="glow-btn">OYNA</button>
+        <!-- Right Panel: Game Area -->
+        <main class="game-area">
+            <div class="canvas-wrapper">
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+                <div id="start-screen" class="overlay visible">
+                    <h1>NEON SNAKE</h1>
+                    <p>Başlamak için Dokun</p>
+                    <button id="start-btn" class="glow-btn">OYNA</button>
+                </div>
+                <div id="game-over-screen" class="overlay hidden">
+                    <h2>OYUN BİTTİ</h2>
+                    <p>Skorun: <span id="final-score">0</span></p>
+                    <button id="restart-btn" class="glow-btn">TEKRAR DENE</button>
+                </div>
             </div>
-            <div id="game-over-screen" class="overlay hidden">
-                <h2>OYUN BİTTİ</h2>
-                <p>Skorun: <span id="final-score">0</span></p>
-                <button id="restart-btn" class="glow-btn">TEKRAR DENE</button>
-            </div>
+        </main>
+
+    </div>
+
+    <!-- Bottom Controls (Always visible on mobile/tablet, customizable on desktop) -->
+    <div class="bottom-controls">
+        <button class="d-pad-btn up" data-dir="up"><i class="fas fa-chevron-up"></i></button>
+        <div class="d-pad-row">
+            <button class="d-pad-btn left" data-dir="left"><i class="fas fa-chevron-left"></i></button>
+            <button class="d-pad-btn right" data-dir="right"><i class="fas fa-chevron-right"></i></button>
         </div>
-
-        <div class="mobile-controls">
-            <button class="d-pad-btn up" data-dir="up"><i class="fas fa-chevron-up"></i></button>
-            <div class="d-pad-row">
-                <button class="d-pad-btn left" data-dir="left"><i class="fas fa-chevron-left"></i></button>
-                <button class="d-pad-btn right" data-dir="right"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <button class="d-pad-btn down" data-dir="down"><i class="fas fa-chevron-down"></i></button>
-        </div>
-
+        <button class="d-pad-btn down" data-dir="down"><i class="fas fa-chevron-down"></i></button>
     </div>
 
     <!-- Info Modal -->

@@ -13,7 +13,7 @@ let snake = [{ x: 10, y: 10 }];
 let food = { x: 15, y: 15 };
 let dx = 0;
 let dy = 0;
-let speed = 100;
+let speed = 150; // Slower speed
 let gameInterval;
 let isGameRunning = false;
 let isPaused = false;
@@ -94,11 +94,11 @@ function gameLoop() {
     // Move Snake
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
-    // Check Wall Collision
-    if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-        endGame();
-        return;
-    }
+    // Check Wall Collision & Wrap Around
+    if (head.x < 0) head.x = tileCount - 1;
+    if (head.x >= tileCount) head.x = 0;
+    if (head.y < 0) head.y = tileCount - 1;
+    if (head.y >= tileCount) head.y = 0;
 
     // Check Self Collision
     for (let i = 0; i < snake.length; i++) {
