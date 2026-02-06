@@ -56,6 +56,48 @@ document.querySelectorAll('.dot').forEach(dot => {
     });
 });
 
+/* Pause Logic */
+const pauseBtn = document.getElementById('pause-btn');
+pauseBtn.addEventListener('click', togglePause);
+
+function togglePause() {
+    if (!isGameRunning) return;
+
+    isPaused = !isPaused;
+    const icon = pauseBtn.querySelector('i');
+
+    if (isPaused) {
+        pauseBtn.innerHTML = '<i class="fas fa-play"></i> Devam';
+        startScreen.classList.remove('hidden');
+        startScreen.querySelector('h1').innerText = "DURAKLATILDI";
+        startScreen.querySelector('p').innerText = "Devam etmek için bas";
+        startScreen.querySelector('#start-btn').innerText = "DEVAM ET";
+
+        // Temporarily override start button for unpause
+        startBtn.removeEventListener('click', startGame);
+        startBtn.addEventListener('click', unpauseGame);
+    } else {
+        unpauseGame();
+    }
+}
+
+function unpauseGame() {
+    isPaused = false;
+    pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Durdur';
+    startScreen.classList.add('hidden');
+
+    // Restore start button
+    startBtn.removeEventListener('click', unpauseGame);
+    startBtn.addEventListener('click', startGame);
+
+    // Reset Initial Text if needed
+    setTimeout(() => {
+        startScreen.querySelector('h1').innerText = "NEON SNAKE";
+        startScreen.querySelector('p').innerText = "Başlamak için Dokun";
+        startScreen.querySelector('#start-btn').innerText = "OYNA";
+    }, 500);
+}
+
 /* Info Modal Logic */
 const infoModal = document.getElementById('info-modal');
 const infoBtn = document.getElementById('info-btn');

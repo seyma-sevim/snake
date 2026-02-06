@@ -181,70 +181,226 @@ canvas {
     /* Large space between Left and Right */
 }
 
+/* Premium Button Styling */
 .d-pad-btn {
-    width: 70px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--primary-color);
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Darker glass */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--primary-color);
-    border-radius: 15px;
-    font-size: 1.8rem;
+    border-radius: 20px;
+    /* Softer shape */
+    font-size: 2rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 15px var(--glow-color);
-    backdrop-filter: blur(5px);
-    transition: transform 0.1s;
+
+    /* Premium Effects */
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 0 10px var(--glow-color);
+    /* Outer Glow */
+    backdrop-filter: blur(10px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect */
+.d-pad-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.d-pad-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        0 0 20px var(--glow-color);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .d-pad-btn:active {
-    background: var(--primary-color);
-    color: #000;
-    transform: scale(0.95);
+    transform: translateY(2px) scale(0.95);
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.5),
+        inset 0 0 10px var(--glow-color);
+    /* Inner glow when pressed */
+    background: rgba(var(--primary-color), 0.2);
+}
+
+/* Action Buttons (Settings/Pause) - Premium Look */
+.action-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    padding: 12px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px var(--glow-color);
+}
+
+.action-btn:active {
+    transform: translateY(1px);
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .main-layout {
-        flex-direction: column;
-        padding: 10px;
+        flex-direction: row;
+        /* Keep row layout */
+        padding: 5px;
         gap: 10px;
+        align-items: flex-start;
+        /* Top align */
     }
 
     .side-panel {
-        flex-direction: row;
-        width: 100%;
-        min-width: auto;
-        justify-content: space-between;
+        flex-direction: column;
+        /* Stack items vertically */
+        width: 60px;
+        /* Narrow fixed width */
+        min-width: 60px;
+        justify-content: flex-start;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px 5px;
+        border-radius: 10px;
+        gap: 15px;
+        height: auto;
     }
 
     .panel-card {
-        padding: 10px;
-        flex: 1;
-        display: flex;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        min-width: auto;
+        backdrop-filter: none;
+        margin-bottom: 5px;
+    }
+
+    .score-card {
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        text-align: center;
+    }
+
+    .score-card h2 {
+        display: none;
+        /* Hide 'SKOR' label to save space */
+    }
+
+    .score-card span {
+        font-size: 1rem;
+        text-shadow: none;
+    }
+
+    /* Add icons for score to make it clear without text? Or just numbers. Numbers are fine. */
+    .score-card::before {
+        content: '\f091';
+        /* Cup icon for High Score, Star for Score */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 1rem;
+        color: var(--primary-color);
+        margin-bottom: 2px;
+    }
+
+    .score-card:first-child::before {
+        content: '\f005';
+        /* Star icon for Score */
     }
 
     .actions-card {
-        flex-direction: row;
+        flex-direction: column;
+        /* Stack buttons */
+        gap: 10px;
+        margin-top: auto;
+        /* Push to bottom of sidebar if enough height, else just flow */
     }
 
     .action-btn {
         padding: 8px;
-        font-size: 0.9rem;
+        font-size: 0;
+        /* Hide Text */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .score-card span {
-        font-size: 1.5rem;
+    .action-btn i {
+        font-size: 1.2rem;
+    }
+
+    .game-area {
+        flex: 1;
+        /* Take remaining width */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     canvas {
         width: 100%;
-        max-width: 350px;
-        /* Constrain width on mobile */
+        height: auto;
+        aspect-ratio: 1 / 1;
+        box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    .bottom-controls {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        gap: 5px;
+        z-index: 50;
+    }
+
+    .d-pad-btn {
+        width: 55px;
+        /* Slightly smaller controls */
+        height: 55px;
+        font-size: 1.3rem;
+        background: rgba(0, 0, 0, 0.5);
+        /* More opaque for visibility over game/bg */
+        backdrop-filter: blur(5px);
+    }
+
+    .d-pad-row {
+        gap: 15px;
     }
 }
 
